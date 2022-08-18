@@ -3,12 +3,21 @@ package LED
 import "machine"
 
 var (
-	Light = machine.LED
+	light = machine.LED
 )
 
-type Config struct{}
+type Mode struct{}
 
-func (Config) Init() {
-	Light = machine.LED
-	Light.Configure(machine.PinConfig{Mode: machine.PinOutput})
+func (Mode) Init() {
+	light = machine.LED
+	light.Configure(machine.PinConfig{Mode: machine.PinOutput})
+}
+
+func (Mode) Power(mode int) {
+	switch mode {
+	case 0:
+		light.Low()
+	case 1:
+		light.High()
+	}
 }

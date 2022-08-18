@@ -3,21 +3,24 @@ package main
 import (
 	"machine"
 	"time"
-	"tiny_go/sensors/LED"
-	"tiny_go/sensors/ultraSonic"
+	"tiny_go_demo/sensors/LED"
+	"tiny_go_demo/sensors/ultraSonic"
 )
 
 func main() {
-	LED.Config{}.Init()
+	led := LED.Mode{}
+	led.Init()
 	device := ultraSonic.New(machine.Pin(2), machine.Pin(3))
 	sen := &device
 	sen.Configure()
 	for {
 		if sen.ReadDistance() > 10 {
-			LED.Light.High()
+			led.Power(0)
 		} else {
-			LED.Light.Low()
+			led.Power(1)
 		}
 		time.Sleep(time.Second * 2)
 	}
 }
+
+// tinygo flash -target arduino main.go

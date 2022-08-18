@@ -1,5 +1,3 @@
-module tiny_go
+module tiny_go_demo
 
-go 1.18
-
-require tinygo.org/x/drivers v0.21.0
+go 1.19
