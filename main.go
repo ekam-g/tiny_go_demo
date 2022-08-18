@@ -10,10 +10,10 @@ import (
 func main() {
 	LED.Config{}.Init()
 	device := ultraSonic.New(machine.Pin(2), machine.Pin(3))
-	x := &device
-	x.Configure()
+	sen := &device
+	sen.Configure()
 	for {
-		if x.ReadDistance() > 10 {
+		if sen.ReadDistance() > 10 {
 			LED.Light.High()
 		} else {
 			LED.Light.Low()

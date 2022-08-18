@@ -5,8 +5,6 @@ import (
 	"time"
 )
 
-const TIMEOUT = 23324 // max sensing distance (4m)
-
 // Device holds the pins
 type Device struct {
 	trigger machine.Pin
@@ -40,6 +38,7 @@ func (d *Device) ReadDistance() int32 {
 
 // ReadPulse returns the time of the pulse (roundtrip) in microseconds
 func (d *Device) ReadPulse() int32 {
+	var timeOut int64 = 23324
 	t := time.Now()
 	d.trigger.Low()
 	time.Sleep(2 * time.Microsecond)
@@ -54,7 +53,7 @@ func (d *Device) ReadPulse() int32 {
 		}
 		i++
 		if i > 10 {
-			if time.Since(t).Microseconds() > TIMEOUT {
+			if time.Since(t).Microseconds() > timeOut {
 				return 0
 			}
 			i = 0
@@ -67,11 +66,10 @@ func (d *Device) ReadPulse() int32 {
 		}
 		i++
 		if i > 10 {
-			if time.Since(t).Microseconds() > TIMEOUT {
+			if time.Since(t).Microseconds() > timeOut {
 				return 0
 			}
 			i = 0
 		}
 	}
-	return 0
 }
