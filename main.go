@@ -14,12 +14,16 @@ func main() {
 	sen := &device
 	sen.Configure()
 	for {
-		if sen.ReadDistance() > 10 {
-			led.Power(0)
-		} else {
+		if sen.ReadDistance() > 60 {
 			led.Power(1)
+		} else {
+			led.Power(0)
+		}
+		if sen.ReadDistance() != 0 {
+			println(sen.ReadDistance())
 		}
 		time.Sleep(time.Second * 2)
+
 	}
 }
 
