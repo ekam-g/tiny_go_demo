@@ -19,5 +19,7 @@ func (Mode) Power(mode int) {
 		light.Low()
 	case 1:
 		light.High()
+	default:
+		panic("bad number given please use 0 or 1")
 	}
 }
